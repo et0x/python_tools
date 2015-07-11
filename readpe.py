@@ -77,8 +77,10 @@ for section in range(SCTNNUMS):
 timestamp = bytes2int(file.read(4),"uint")
 sctninfo = 0
 i = 0
-txtfile = open("rawtxt.bin","wb")
+txtfile = open("raw_code.bin","wb")
+txtfile2 = open("raw_all.bin","wb")
 txtsection = ""
+txtsection_all = ""
 for data in headerdict.values():	
 	sctninfo = readSectionInfo(data)
 	print "Section ['%s']:"%data[:data[:9].find("\x00")]
@@ -89,8 +91,11 @@ for data in headerdict.values():
 	print "    FLAGS: 0x%08x"%readSectionInfo(data)[4]
 	if (i == 0):
 		txtsection = text[CODEBASE:readSectionInfo(data)[3]+(readSectionInfo(data)[2])]
+		txtsection_all = text[readSectionInfo(data)[3]:readSectionInfo(data)[3]+(readSectionInfo(data)[2])]
 		txtfile.write(txtsection)
+		txtfile2.write(txtsection_all)
 		
 		txtfile.close()
+		txtfile2.close()
 	i += 1
 print "Date/Timestamp: %s"%time.ctime(timestamp)
