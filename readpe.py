@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os, sys, re, struct, string
+import os, sys, re, struct, string, binascii, time
 
 fileName = sys.argv[1]
 text = open(fileName,"rb").read()
@@ -53,6 +53,10 @@ while (1):
 
 file.seek(PEOFFSET+6)
 PTROFFSET = file.tell()
+CODEBASE = bytes2int(text[PEOFFSET+44:PEOFFSET+48],"uint")
+ENTRYPT  = bytes2int(text[PEOFFSET+40:PEOFFSET+44],"uint")
+print "codebase is 0x%08x"%CODEBASE
+print "Entry Point is: 0x%08x"%ENTRYPT
 
 SHOFFSET = file.tell()
 SSOFFSET = PEOFFSET+247
@@ -69,8 +73,12 @@ headerdict = {}
 for section in range(SCTNNUMS):
 	d = file.read(40)
 	headerdict[section] = d
-	
+
+timestamp = bytes2int(file.read(4),"uint")
 sctninfo = 0
+i = 0
+txtfile = open("rawtxt.bin","wb")
+txtsection = ""
 for data in headerdict.values():	
 	sctninfo = readSectionInfo(data)
 	print "Section ['%s']:"%data[:data[:9].find("\x00")]
@@ -79,3 +87,10 @@ for data in headerdict.values():
 	print "    RSIZE: 0x%08x"%readSectionInfo(data)[2]
 	print "  ROFFSET: 0x%08x"%readSectionInfo(data)[3]
 	print "    FLAGS: 0x%08x"%readSectionInfo(data)[4]
+	if (i == 0):
+		txtsection = text[CODEBASE:readSectionInfo(data)[3]+(readSectionInfo(data)[2])]
+		txtfile.write(txtsection)
+		
+		txtfile.close()
+	i += 1
+print "Date/Timestamp: %s"%time.ctime(timestamp)
