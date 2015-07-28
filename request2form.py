@@ -4,7 +4,7 @@
 turns a captured POST request (such as in burp) similar to the following...
 
 POST /mail/accountsettings_add.html HTTP/1.1
-Host: 192.168.98.182:32000
+Host: 1.2.3.4:32000
 User-Agent: Mozilla/5.0 (X11; Linux i686; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.5.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
