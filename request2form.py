@@ -9,7 +9,7 @@ User-Agent: Mozilla/5.0 (X11; Linux i686; rv:31.0) Gecko/20100101 Firefox/31.0 I
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate
-Referer: http://192.168.98.182:32000/mail/accountsettingsaction.html
+Referer: http://1.2.3.4:32000/mail/accountsettingsaction.html
 Cookie: IceWarpWebMailSessID=4cc1dc35b0bf6a51380f33443c8a9a0a
 Connection: keep-alive
 Content-Type: application/x-www-form-urlencoded
